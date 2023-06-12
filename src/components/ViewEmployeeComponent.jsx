@@ -7,6 +7,7 @@ const ViewEmployeeComponent = (props) => {
     const { id } = useParams();
     const [employee, setEmployee] = useState({});
 
+    //on page load api will call in useEffect
     useEffect(() => {
         EmployeeService.getEmployeeById(id).then((res) => {
             setEmployee(res.data);
@@ -35,6 +36,10 @@ const ViewEmployeeComponent = (props) => {
                         <div className="row">
                             <label> Employee Email ID: </label>
                             <div> {employee.emailId}</div>
+                        </div>
+                        <div className="row">
+                            <label> Address: </label>
+                            <div> {employee.address}</div>
                         </div>
                     </div>
                 <button

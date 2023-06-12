@@ -9,6 +9,7 @@ const CreateEmployeeComponent = (props) => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [emailId, setEmailId] = useState("");
+    const [address, setAddress] = useState("");
 
     useEffect(() => {
         if (id === '_add') {
@@ -19,9 +20,10 @@ const CreateEmployeeComponent = (props) => {
                 setFirstName(employee.firstName);
                 setLastName(employee.lastName);
                 setEmailId(employee.emailId);
+                setAddress(employee.address);
             });
         }
-    }, [employee.firstName, employee.lastName, employee.emailId]);
+    }, [employee.firstName, employee.lastName, employee.emailId, employee.address]);
 
     const saveOrUpdateEmployee = (e) => {
         e.preventDefault();
@@ -30,7 +32,8 @@ const CreateEmployeeComponent = (props) => {
             let employee = {
                 firstName: firstName,
                 lastName: lastName,
-                emailId: emailId
+                emailId: emailId,
+                address: address
             }
             EmployeeService.createEmployee(employee).then(res => {
                 props.navigation('/employees');
@@ -39,7 +42,8 @@ const CreateEmployeeComponent = (props) => {
             let updateEmployee = {
                 firstName: firstName,
                 lastName: lastName,
-                emailId: emailId
+                emailId: emailId,
+                address: address
             }
             EmployeeService.updateEmployee(updateEmployee, id).then(res => {
                 props.navigation('/employees');
@@ -60,6 +64,11 @@ const CreateEmployeeComponent = (props) => {
     const changeEmailHandler = (event) => {
         //this.setState({ emailId: event.target.value });
         setEmailId(event.target.value);
+    }
+
+    const changeAddressHandler = (event) => {
+        //this.setState({ address: event.target.value });
+        setAddress(event.target.value);
     }
 
     const cancel = () => {
@@ -99,6 +108,11 @@ const CreateEmployeeComponent = (props) => {
                                     <label> Email Id: </label>
                                     <input placeholder="Email Address" name="emailId" className="form-control"
                                         value={emailId} onChange={changeEmailHandler} />
+                                </div>
+                                <div className="form-group">
+                                    <label>Address: </label>
+                                    <input placeholder="Address" name="address" className="form-control"
+                                        value={address} onChange={changeAddressHandler} />
                                 </div>
 
                                 <button className="btn btn-success" onClick={saveOrUpdateEmployee}>Save</button>
